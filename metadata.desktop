@@ -1,0 +1,14 @@
+[SddmGreeterTheme]
+Name=Sugar Catppuccin 
+Description=Catppuccin theme based on Sugar Dark;
+Author=Tiago Damascena
+License=GPL-3.0-or-later
+Type=sddm-theme
+Version=1.0
+Website=https://github.com/TiagoDamascena/sddm-sugar-catppuccin
+Screenshot=Preview.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+Email=tiagobdamascena@gmail.com
+Theme-Id=sugar-catppuccin
+Theme-API=2.11
