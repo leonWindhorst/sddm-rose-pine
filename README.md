@@ -29,7 +29,54 @@ In the `[Theme]` section simply add the themes name: `Current=sddm-rose-pine`. A
 
 ### NixOS
 
-TODO
+You can create a derivation and install it via environment.systemPackages.
+
+```nix
+# sddm-rose-pine.nix
+
+{ stdenv, fetchFromGitHub }:
+
+stdenv.mkDerivation rec {
+  pname = "sddm-rose-pine-theme";
+  version = "1.0";
+  dontBuild = true;
+
+  installPhase = ''
+    mkdir -p $out/share/sddm/themes
+    cp -aR $src $out/share/sddm/themes/rose-pine
+  '';
+
+  src = fetchFromGitHub {
+    owner = "leonWindhorst";
+    repo = "sddm-rose-pine";
+    rev = "main";
+    sha256 = "r7NdWdK9DOyHL3/u4Syp4uhRv5JgZ5aU4zUEmBizkXs=";
+  };
+}
+```
+
+```nix
+# configuration.nix
+
+{
+  services.xserver.displayManager.sddm.theme = "rose-pine";
+
+  # ...
+
+  environment.systemPackages =
+    let 
+      derivations = {
+        sddm-rose-pine = pkgs.callPackage ./sddm-rose-pine.nix {};
+      };
+    in [
+      # Needed for SDDM theme
+      pkgs.libsForQt5.qt5.qtgraphicaleffects
+
+      # Custom packages
+      derivations.sddm-rose-pine
+    ];
+}
+```
 
 ### Theming the theme
 
