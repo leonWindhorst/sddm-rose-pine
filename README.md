@@ -63,18 +63,13 @@ stdenv.mkDerivation rec {
 
   # ...
 
-  environment.systemPackages =
-    let 
-      derivations = {
-        sddm-rose-pine = pkgs.callPackage ./sddm-rose-pine.nix {};
-      };
-    in [
-      # Needed for SDDM theme
-      pkgs.libsForQt5.qt5.qtgraphicaleffects
+  environment.systemPackages = with pkgs; [
+    # Needed for SDDM theme
+    libsForQt5.qt5.qtgraphicaleffects
 
-      # Custom packages
-      derivations.sddm-rose-pine
-    ];
+    # Install the derivation
+    (callPackage ./sddm-rose-pine.nix {})
+  ];
 }
 ```
 
